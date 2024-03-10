@@ -1,7 +1,7 @@
 // src/core/use-case/address/impl/get-user-primary-address.uc.impl.ts
 
 import { Injectable } from '@nestjs/common';
-import { IGetUserPrimaryAddressUsecase } from '../address/get-user-primary-address.uc';
+import { IGetUserPrimaryAddressUsecase } from '../user-address/get-user-primary-address.uc';
 import { AddressRepository } from '../../../data-provider/repository/address.repository'; // Asumiendo la existencia de este repositorio
 import { Address } from '../../entity/user-address/address.entity';
 

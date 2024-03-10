@@ -1,7 +1,7 @@
 // src/core/use-case/address/impl/update-address.uc.impl.ts
 
 import { Injectable } from '@nestjs/common';
-import { IUpdateAddressUsecase } from '../address/update-address.uc';
+import { IUpdateAddressUsecase } from '../user-address/update-address.uc';
 import { UpdateAddressDto } from '../../../controller/dto/user-address/update-address.dto';
 import { AddressRepository } from '../../../data-provider/repository/address.repository'; // Asumiendo la existencia de este repositorio
 import { Address } from '../../../core/entity/user-address/address.entity';

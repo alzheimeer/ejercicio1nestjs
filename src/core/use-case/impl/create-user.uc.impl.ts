@@ -1,7 +1,7 @@
 // src/core/use-case/user/impl/crear-usuario.uc.impl.ts
 
 import { Injectable } from '@nestjs/common';
-import { ICrearUsuarioUsecase } from '../user/create-user.uc';
+import { ICrearUsuarioUsecase } from '../user-address/create-user.uc';
 import { CreateUserDto } from '../../../controller/dto/user-address/create-user.dto';
 import { User } from '../../entity/user-address/user.entity';
 import { UserRepository } from '../../../data-provider/repository/user.repository'; // Asumiendo la existencia de este repositorio
