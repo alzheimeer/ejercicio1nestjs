@@ -1,0 +1,46 @@
+# EJEMPLO DOCKERFILE A TOMAR PARA UN PROYECTO ESTANDAR QUE SOLO REQUIERE MONGO Y NODE18   
+FROM node:18-alpine
+
+ARG MAX_OLD_SPACE_SIZE=4096
+ENV NODE_OPTIONS=--max-old-space-size=${MAX_OLD_SPACE_SIZE}
+
+WORKDIR /usr/src/app
+COPY .npmrc .npmrc
+COPY package.json ./
+RUN npm install
+COPY . .
+RUN npm install -g @nestjs/cli
+RUN npm run build
+RUN rm -f .npmrc
+
+EXPOSE 8080
+CMD ["node", "dist/main"]
+
+# EJEMPLO DOCKERFILE A TOMAR PARA UN PROYECTO QUE REQUIERE ORACLE, MONGO Y NODE18   
+FROM oraclelinux:8-slim
+
+ARG MAX_OLD_SPACE_SIZE=4096
+ENV NODE_OPTIONS=--max-old-space-size=${MAX_OLD_SPACE_SIZE}
+
+RUN microdnf update -y && \
+    microdnf install -y yum curl tar xz
+
+RUN curl -fsSL https://nodejs.org/dist/v18.19.0/node-v18.19.0-linux-x64.tar.xz | tar -xJ -C /usr/local --strip-components=1
+
+RUN yum -y install oracle-release-el8 && \
+    yum -y install oracle-instantclient-release-el8 && \
+    yum -y install oracle-instantclient-basic && \
+    rm -rf /var/cache/yum && \
+    yum clean all
+
+WORKDIR /usr/src/app
+COPY .npmrc .npmrc
+COPY package.json ./
+RUN npm install
+COPY . .
+RUN npm install -g @nestjs/cli
+RUN npm run build
+RUN rm -f .npmrc
+
+EXPOSE 8080
+CMD ["node", "dist/main"]

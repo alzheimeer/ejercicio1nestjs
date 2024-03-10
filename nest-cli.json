@@ -1,0 +1,7 @@
+{
+  "collection": "@nestjs/schematics",
+  "compilerOptions": {
+      "assets": ["**/*.sql", "**/*.xml"]
+  },
+  "sourceRoot": "src"
+}
