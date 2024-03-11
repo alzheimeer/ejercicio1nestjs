@@ -6,9 +6,10 @@ import { ControllerModule } from './controller/controller.module';
 import { RequestHttpInterceptor } from './controller/interceptor/request-http.interceptor';
 import { CoreModule } from './core/core.module';
 import { DataProviderModule } from './data-provider/data-provider.module';
+import { UsersModule } from './users/users.module';
 
 @Module({
-  imports: [CommonModule, DataProviderModule, CoreModule, ControllerModule],
+  imports: [CommonModule, DataProviderModule, CoreModule, ControllerModule, UsersModule],
   controllers: [],
   providers: [
     {
