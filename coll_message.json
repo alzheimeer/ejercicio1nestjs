@@ -1,0 +1,56 @@
+[{
+    "_id": {
+      "$oid": "64658ed614067d4bf72a531d"
+    },
+    "id": "DEFAULT_ERROR",
+    "description": "Error interno del servicio",
+    "message": "¡Ups¡, parece que algo salió mal, inténtalo nuevamente."
+  },
+  {
+    "_id": {
+      "$oid": "64658ed614067d4b112a531e"
+    },
+    "id": "CHANNEL_ERROR",
+    "description": "Canal incorrecto",
+    "message": "El canal recibido no es soportado por el servicio."
+  },
+  {
+    "_id": {
+      "$oid": "64658ed614067d07852a531f"
+    },
+    "id": "DEFAULT",
+    "description": "Proceso ejecutado correctamente.",
+    "message": "Execution successfull"
+  },
+  {
+    "_id": {
+      "$oid": "64658ed614067d6f0c2a5320"
+    },
+    "id": "FLUJO_NO_SOPORTADO",
+    "description": "Flujo Inspira no soportado",
+    "message": "Flujo no soportado"
+  },
+  {
+    "_id": {
+      "$oid": "64658ed614067d107e2a5321"
+    },
+    "id": "TRANSACCION_EXITOSA",
+    "description": "Execution successfull",
+    "message": "Execution successfull"
+  },
+  {
+    "_id": {
+      "$oid": "64658ed614067d32a72a5322"
+    },
+    "id": "ERROR_CAMPOS_OBLIGATORIOS",
+    "description": "Error validación de campos obligatorios",
+    "message": "Error validación de campos obligatorios"
+  },
+  {
+    "_id": {
+      "$oid": "655f7a0f7515d52082513f20"
+    },
+    "id": "MONGODB",
+    "description": "Sin conexión a la base de datos",
+    "message": "Connection timeout"
+  }]

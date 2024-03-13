@@ -1,0 +1,109 @@
+[{
+    "_id": {
+      "$oid": "65a54fb203e3b60318474538"
+    },
+    "id_param": "Listas",
+    "description": "Listas de precios",
+    "status": true,
+    "createdUser": "admin",
+    "updatedUser": "admin",
+    "createdAt": "2023-04-24T09:46:17-05:00",
+    "updatedAt": "2023-04-24T09:46:17-05:00",
+    "values": [
+      {
+        "status": true,
+        "listNames": [
+          {
+            "name": "Precio Cliente Claro",
+            "id": "priceClientClaro",
+            "priceBefore": false,
+            "popType": "PrecioVentaOne-Time",
+            "status": true
+          }
+        ],
+        "family": "TerminalesLibres"
+      },
+      {
+        "status": true,
+        "listNames": [
+          {
+            "name": "Extended Sites Catalog Asset StoreList",
+            "id": "kitPrepagoExtendedSitesCatalogAssetStoreList",
+            "priceBefore": true,
+            "popType": "",
+            "status": true
+          },
+          {
+            "name": "Extended Sites Catalog Asset Store",
+            "id": "kitPrepagoExtendedSitesCatalogAssetStore",
+            "priceBefore": false,
+            "popType": "PrecioVentaOne-Time",
+            "status": true
+          },
+          {
+            "name": "Precio Antes KitPrepago",
+            "id": "precioAntesKitPrepago",
+            "priceBefore": true,
+            "popType": "",
+            "status": true
+          },
+          {
+            "name": "Precio Ahora KitPrepago",
+            "id": "precioAhoraKitPrepago",
+            "priceBefore": false,
+            "popType": "PrecioVentaOne-Time",
+            "status": true
+          },
+          {
+            "name": "PrecioSinImpuestos",
+            "id": "precioSinImpuestos",
+            "priceBefore": false,
+            "popType": "PrecioBaseOne-Time",
+            "status": true
+          },
+          {
+            "name": "IVA",
+            "id": "IVA",
+            "priceBefore": false,
+            "popType": "ImpuestoIVA",
+            "status": true
+          }
+        ],
+        "family": "KitPrepago"
+      },
+      {
+        "status": true,
+        "listNames": [
+          {
+            "name": "Extended Sites Catalog Asset StoreList",
+            "id": "kitPrepagoExtendedSitesCatalogAssetStoreList",
+            "priceBefore": true,
+            "popType": "",
+            "status": true
+          },
+          {
+            "name": "Extended Sites Catalog Asset Store",
+            "id": "kitPrepagoExtendedSitesCatalogAssetStore",
+            "priceBefore": false,
+            "popType": "PrecioVentaOne-Time",
+            "status": true
+          },
+          {
+            "name": "PrecioSinImpuestos",
+            "id": "precioSinImpuestos",
+            "priceBefore": false,
+            "popType": "PrecioBaseOne-Time",
+            "status": true
+          },
+          {
+            "name": "IVA",
+            "id": "IVA",
+            "priceBefore": false,
+            "popType": "ImpuestoIVA",
+            "status": true
+          }
+        ],
+        "family": "Tecnologia"
+      }
+    ]
+  }]
