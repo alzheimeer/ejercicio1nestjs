@@ -25,14 +25,21 @@ export class UserProvider implements IUserProvider {
         return this.toIUser(user);
     }
 
-    async updateUserAddresses(userId: string, addresses: Address[]): Promise<boolean> {
+    async updateUserAddresses(userId: string, updateAddressDtos: UpdateAddressDto[]): Promise<boolean> {
         const user = await this.userModel.findById(userId).exec();
         if (!user) return false;
-        // user.addresses = addresses.map(addr => ({ ...addr }));
-        user.addresses = addresses.map(addr => ({
-            ...addr,
-            _id: addr.id ? new mongoose.Types.ObjectId(addr.id) : new mongoose.Types.ObjectId(),
-        }));
+
+        user.addresses = [];
+
+        updateAddressDtos.forEach(dto => {
+        const address = new Address({
+            address: dto.address,
+            isActive: dto.isActive,
+            isPrimary: dto.isPrimary
+        });
+
+        user.addresses.push(address);
+    });
         await user.save();
         return true;
     }

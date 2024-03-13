@@ -7,6 +7,7 @@ import { IUserUc } from '../user.uc';
 import { IUser } from '../../../core/entity/user.interface';
 import { IAddress } from '../../../core/entity/address.interface';
 import { UserModel } from 'src/data-provider/model/user.model';
+import { Address } from 'src/data-provider/model/address.model';
 
 @Injectable()
 export class UserUcImpl implements IUserUc {
@@ -36,15 +37,20 @@ export class UserUcImpl implements IUserUc {
         if (!user) {
             throw new NotFoundException(`Usuario con ID ${userId} no encontrado.`);
         }
+        user.addresses = [];
 
-        // user.addresses = updateAddressDtos.map(dto => ({...dto}));
-        user.addresses = addresses.map(addr => ({
-            ...addr,
-            _id: addr.id ? new mongoose.Types.ObjectId(addr.id) : new mongoose.Types.ObjectId(),
-        }));
-        await user.save();
+        for (const dto of updateAddressDtos) {
+        const address = new Address({
+            address: dto.address,
+            isActive: dto.isActive,
+            isPrimary: dto.isPrimary,
+        });
+        user.addresses.push(address);
+    }
 
-        return true;
+    await user.save();
+
+    return true;
     }
 
     private toIUser(user: UserModel): IUser {
