@@ -1,3 +1,7 @@
+/**
+ * Clase con la definición de operaciones a realizar en la coleccion coll_user y coll_address 
+ * @author Carlos Mauricio Quintero
+ */
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
@@ -19,63 +23,62 @@ export class UserProvider implements IUserProvider {
   ) {}
 
   /**
-   * Operación de creacion de usuario, Primero crea el usuario sin direcciones inicialmente
+   * Operación de creacion de usuario, Primero crea el usuario sin direcciones,
+   * luego las direcciones con id vinculante, y por ultimo busca el usuario para retornarlo
    * @param {CreateUserDto} createUserDto Datos del usuario
-   * @returns {Object} informacion asociada a la creacion
+   * @returns {Object} usuario creado
    */
   async createUser(createUserDto: CreateUserDto): Promise<IUser> {
-    // Crea el usuario sin direcciones inicialmente
     const { addresses, ...userWithoutAddresses } = createUserDto;
     const newUser = new this.userModel(userWithoutAddresses);
     const savedUser = await newUser.save();
-
-    // Añade las direcciones utilizando el AddressService
+  
     if (addresses && addresses.length > 0) {
-      await Promise.all(
-        addresses.map(async (addressDto) => {
-          const updateAddressDto = {
-            ...addressDto,
-            userId: savedUser._id.toString(), // Convierte el ObjectId a string si es necesario
-          };
-          // Suponiendo que AddressService tiene un método para manejar la creación de direcciones
-          // que podría ser similar al método de upsert pero específicamente para crear nuevas direcciones
-          await this.createAddress(updateAddressDto as UpdateAddressDto); // Ajusta según sea necesario
-        }),
-      );
+      let primaryFound = false;
+      const modifiedAddresses = addresses.map((address, index) => {
+        if (address.isPrimary && !primaryFound) {
+          primaryFound = true;
+          return address;
+        } else {
+          return { ...address, isPrimary: false };
+        }
+      });
+      if (!primaryFound) modifiedAddresses[0].isPrimary = true;
+      await Promise.all(modifiedAddresses.map(async (addressDto) => {
+        const updateAddressDto = {
+          ...addressDto,
+          userId: savedUser._id.toString(),
+        };
+        await this.createAddress(updateAddressDto as UpdateAddressDto);
+      }));
     }
-
-    // Vuelve a buscar el usuario para obtener la versión actualizada con las direcciones
     const updatedUser = this.getUserById(savedUser._id.toString());
-    // const updatedUser = await this.userModel.findById(savedUser._id).lean().exec();
     return updatedUser;
   }
   /**
    * Operación para consultar todos los usuarios
-   * @returns {Object} Lista De Usuarios
+   * Busca usuario en forma individual, luego trae las direcciones por ID,
+   * y luego las agrega al usuario, por ultimo mapea a la estructura IUser
+   * @returns {Object} Lista De Usuarios con todas las direcciones
    */
   async getAllUsers(): Promise<IUser[]> {
     const users = await this.userModel.find().lean().exec();
-
-    // Obtén las direcciones para cada usuario de forma individual
     const usersWithAddresses = await Promise.all(
       users.map(async (user) => {
-        // Utiliza el AddressService para encontrar las direcciones por userId
         const addresses = await this.findAddressesByUserId(user._id.toString());
         return {
           ...user,
-          addresses, // Agrega las direcciones al objeto de usuario
+          addresses,
         };
       }),
     );
-
-    // Mapea los usuarios a la estructura IUser esperada
     return usersWithAddresses.map((user) => this.toIUser(user));
   }
 
   /**
    * Operación para consultar un usuario
    * @param {string} userId Id usuario
-   * @returns {Object} informacion del usuario
+   * @returns {Object} datos del usuario
    */
   async getUserById(userId: string): Promise<IUser | null> {
     const user = await this.userModel.findById(userId).lean().exec();
@@ -96,12 +99,27 @@ export class UserProvider implements IUserProvider {
    * @param {string} userId Id usuario
    * @returns {Object} informacion asociada a la actualizacion
    */
-  async updateUserAddresses(
-    userId: string,
-    updateAddressDtos: UpdateAddressDto[],
-  ): Promise<boolean> {
-    for (const dto of updateAddressDtos) {
-      await this.upsertAddress(dto, userId);
+  async updateUserAddresses(userId: string, updateAddressDtos: UpdateAddressDto[]): Promise<boolean> {
+    let primaryFound = false;
+    const modifiedAddresses = updateAddressDtos.map((dto, index) => {
+      if (dto.isPrimary && !primaryFound) {
+        primaryFound = true;
+        return dto;
+      } else {
+        return { ...dto, isPrimary: false };
+      }
+    });
+    if (primaryFound) {
+      await this.addressModel.updateMany({ userId: userId }, { $set: { isPrimary: false } });
+    } 
+    for (const dto of modifiedAddresses) {
+      if (dto.id) {
+        await this.addressModel.findOneAndUpdate({ _id: dto.id, userId: userId }, { ...dto }, { new: true });
+      } else {
+        const newAddressData = { ...dto, userId: userId };
+        const newAddress = new this.addressModel(newAddressData);
+        await newAddress.save();
+      }
     }
     return true;
   }
@@ -156,18 +174,16 @@ export class UserProvider implements IUserProvider {
     userId: string,
   ): Promise<AddressModel> {
     const { id, ...updateData } = updateAddressDto;
-    // Si se proporciona un ID, intenta actualizar.
     if (id) {
       return await this.addressModel
         .findOneAndUpdate(
-          { _id: id, userId: userId }, // Asegúrate de que la dirección pertenezca al usuario correcto.
+          { _id: id, userId: userId },
           updateData,
           { new: true },
         )
         .exec();
     } else {
-      // Para una nueva dirección, asegura que el userId esté incluido.
-      const newAddressData = { ...updateData, userId: userId }; // Asume que updateData ya no incluye el id.
+      const newAddressData = { ...updateData, userId: userId };
       const newAddress = new this.addressModel(newAddressData);
       await newAddress.save();
       return newAddress;

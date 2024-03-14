@@ -30,7 +30,7 @@ export class UserUcImpl implements IUserUc {
     */
     async getUserAndMainAddress(userId: string): Promise<IUser> {
         const user = await this.userProvider.getUserById(userId);
-        if (!user) {
+        if (!user) { 
             throw new NotFoundException(`Usuario con ID ${userId} no encontrado.`);
         }
         user.addresses = user.addresses.filter(address => address.isPrimary && address.isActive);

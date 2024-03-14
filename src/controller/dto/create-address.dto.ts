@@ -16,5 +16,5 @@ export class CreateAddressDto {
     @IsNotEmpty()
     @IsBoolean()
     @ApiProperty({ example: false, description: 'Cuando la direccion es la direccion principal', required: false })
-    readonly isPrimary?: boolean;
+    isPrimary?: boolean;
 }
