@@ -1,74 +1,38 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { InjectModel } from '@nestjs/mongoose';
-import mongoose, { Model } from 'mongoose';
 import { CreateUserDto } from 'src/controller/dto/create-user.dto';
 import { UpdateAddressDto } from 'src/controller/dto/update-address.dto';
 import { IUserUc } from '../user.uc';
 import { IUser } from '../../../core/entity/user.interface';
-import { IAddress } from '../../../core/entity/address.interface';
-import { UserModel } from 'src/data-provider/model/user.model';
-import { Address } from 'src/data-provider/model/address.model';
+import { IUserProvider } from 'src/data-provider/user.provider';
 
 @Injectable()
 export class UserUcImpl implements IUserUc {
     constructor(
-        @InjectModel(UserModel.name) private userModel: Model<UserModel>
+        private userProvider: IUserProvider // Inyecta IUserProvider
     ) {}
 
     async createUser(createUserDto: CreateUserDto): Promise<IUser> {
-        const createdUser = new this.userModel(createUserDto);
-        const savedUser = await createdUser.save();
-        return this.toIUser(savedUser);
+        // Usa userProvider para crear el usuario
+        return await this.userProvider.createUser(createUserDto);
+    }
+
+    async getAllUsers(): Promise<IUser[]> {
+        // Usa userProvider para obtener todos los usuarios
+        return await this.userProvider.getAllUsers();
     }
 
     async getUserAndMainAddress(userId: string): Promise<IUser> {
-        const user = await this.userModel.findById(userId).exec();
+        const user = await this.userProvider.getUserById(userId);
         if (!user) {
             throw new NotFoundException(`Usuario con ID ${userId} no encontrado.`);
         }
-        const mainAddress = user.addresses.find(address => address.isPrimary && address.isActive);
-        const resultUser = this.toIUser(user);
-        resultUser.addresses = mainAddress ? [this.toIAddress(mainAddress)] : [];
-        return resultUser;
+        // Filtra y mantiene solo la dirección principal activa
+        user.addresses = user.addresses.filter(address => address.isPrimary && address.isActive);
+        return user;
     }
 
     async updateAddresses(userId: string, updateAddressDtos: UpdateAddressDto[]): Promise<boolean> {
-        const user = await this.userModel.findById(userId).exec();
-        if (!user) {
-            throw new NotFoundException(`Usuario con ID ${userId} no encontrado.`);
-        }
-        user.addresses = [];
-
-        for (const dto of updateAddressDtos) {
-        const address = new Address({
-            address: dto.address,
-            isActive: dto.isActive,
-            isPrimary: dto.isPrimary,
-        });
-        user.addresses.push(address);
-    }
-
-    await user.save();
-
-    return true;
-    }
-
-    private toIUser(user: UserModel): IUser {
-        return {
-            id: user._id.toString(),
-            name: user.name,
-            documentNumber: user.documentNumber,
-            documentType: user.documentType,
-            addresses: user.addresses.map(this.toIAddress)
-        };
-    }
-
-    private toIAddress(address: any): IAddress { // Asegúrate de tipar correctamente este método según tus necesidades
-        return {
-            id: address._id.toString(),
-            address: address.address,
-            isActive: address.isActive,
-            isPrimary: address.isPrimary
-        };
+        // Usa userProvider para actualizar las direcciones del usuario
+        return await this.userProvider.updateUserAddresses(userId, updateAddressDtos);
     }
 }

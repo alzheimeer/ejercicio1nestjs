@@ -5,21 +5,21 @@ export class UpdateAddressDto {
 
     @IsOptional()
     @IsString()
-    @ApiProperty({ description: "Address ID", required: false})
+    @ApiProperty({ description: "Direccion ID", required: false})
     readonly id?: string;
 
     @IsNotEmpty()
     @IsString()
-    @ApiProperty({ description: "Address detail"})
+    @ApiProperty({ description: "Detalles de la direccion"})
     readonly address: string;
 
     @IsNotEmpty()
     @IsBoolean()
-    @ApiProperty({ description: "Is the address active"})
+    @ApiProperty({ description: "La direccion esta activa"})
     readonly isActive: boolean;
 
     @IsNotEmpty()
     @IsBoolean()
-    @ApiProperty({ description: "Is the address primary"})
+    @ApiProperty({ description: "La direccion es la Principal"})
     readonly isPrimary: boolean;
 }

@@ -21,7 +21,10 @@ import { ETaskDesc, Etask } from 'src/common/utils/enums/taks.enum';
 @Controller(`${generalConfig.apiVersion}${generalConfig.controllerMessage}`)
 
 export class MessageController {
-  constructor(private readonly _messageService: IMessageService, private readonly _serviceTracing: IServiceTracingUc) { }
+  constructor(
+    private readonly _messageService: IMessageService,
+    private readonly _serviceTracing: IServiceTracingUc
+  ) { }
 
 
   @Get(MethodMessage.GETBYID)

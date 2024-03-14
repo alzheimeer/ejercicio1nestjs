@@ -22,6 +22,10 @@ import { IServiceTracingUc } from 'src/core/use-case/resource/service-tracing.re
 import { ServiceTracingUcimpl } from 'src/core/use-case/resource/impl/service-tracing.resource.uc.impl';
 import { IOracleDBProvider } from './oracle-db.provider';
 import { OracleDBProvider } from './provider/oracle-db.provider.impl';
+import { IUserProvider } from './user.provider';
+import { UserProvider } from './provider/user.provider.impl';
+import { UserModel, UserSchema } from './model/user.model';
+import { AddressModel, AddressSchema } from './model/address.model';
 
 @Module({
   imports: [
@@ -32,7 +36,11 @@ import { OracleDBProvider } from './provider/oracle-db.provider.impl';
       autoIndex: false
     }),
     MongooseModule.forFeature([
+      { name: UserModel.name, schema: UserSchema, collection: 'coll_user'},
+      { name: AddressModel.name, schema: AddressSchema, collection: 'coll_address'},
+
       { name: MessageModel.name, schema: MessageSchema, collection: 'coll_message'},
+
       { name: ParamModel.name, schema: ParamSchema, collection: 'coll_params' },
       { name: ServiceErrorModel.name, schema: ServiceErrorSchema, collection: 'coll_service_error' },
       { name: ServiceTracingModel.name, schema: ServiceTracingSchema, collection: 'coll_traceability' },
@@ -41,6 +49,8 @@ import { OracleDBProvider } from './provider/oracle-db.provider.impl';
   ],
   providers: [
     { provide: IMessageProvider, useClass: MessageProvider },
+    { provide: IUserProvider, useClass: UserProvider },
+
     { provide: IHttpProvider, useClass: HttpProvider },
     { provide: IHttpPruebaProvider, useClass: HttpPruebaProvider },
     { provide: IParamProvider, useClass: ParamProvider },
@@ -50,6 +60,15 @@ import { OracleDBProvider } from './provider/oracle-db.provider.impl';
     { provide: IOracleDBProvider, useClass: OracleDBProvider },
     HttpModule
   ],
-  exports: [IMessageProvider, IHttpPruebaProvider, IParamProvider, IServiceErrorProvider, IServiceTracingProvider, IServiceTracingUc, HttpModule, IOracleDBProvider],
+  exports: [
+    IMessageProvider,
+    IUserProvider, 
+    IHttpPruebaProvider, 
+    IParamProvider, 
+    IServiceErrorProvider, 
+    IServiceTracingProvider, 
+    IServiceTracingUc, 
+    HttpModule, 
+    IOracleDBProvider],
 })
 export class DataProviderModule {}

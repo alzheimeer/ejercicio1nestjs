@@ -6,6 +6,7 @@ import { IUser } from '../entity/user.interface';
 @Injectable()
 export abstract class IUserUc {
     abstract createUser(createUserDto: CreateUserDto): Promise<IUser>;
+    abstract getAllUsers(): Promise<IUser[]>;
     abstract getUserAndMainAddress(userId: string): Promise<IUser>;
     abstract updateAddresses(userId: string, updateAddressDtos: UpdateAddressDto[]): Promise<boolean>;
 }

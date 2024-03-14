@@ -1,13 +1,17 @@
-/**
+ /**
  * Se define la configuracion del modelo de la coleccion users
  * @author Mauricio Quintero
  */
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
-import { Address, AddressSchema } from './address.model';
+import { AddressModel, AddressSchema } from './address.model';
 
 @Schema({ versionKey: false })
-export class UserModel extends Document {
+export class UserModel {
+  
+  @Prop({ required: false })
+  id: string;
+
   @Prop({ required: true })
   name: string;
 
@@ -18,7 +22,7 @@ export class UserModel extends Document {
   documentType: string;
 
   @Prop({ type: [AddressSchema], default: [] })
-  addresses: Address[];
+  addresses: AddressModel[];
 }
 
 export const UserSchema = SchemaFactory.createForClass(UserModel);

@@ -10,17 +10,21 @@ import { ServiceTracingUcimpl } from './use-case/resource/impl/service-tracing.r
 import { IParamUc } from './use-case/resource/param.resource.uc';
 import { IServiceErrorUc } from './use-case/resource/service-error.resource.uc';
 import { IServiceTracingUc } from './use-case/resource/service-tracing.resource.uc';
+import { IUserUc } from './use-case/user.uc';
+import { UserUcImpl } from './use-case/impl/user.uc.impl';
 
 @Module({
   imports: [CacheModule.register(),DataProviderModule],
   providers: [
     { provide: IMessageUc, useClass: MessageUcimpl },
+    { provide: IUserUc, useClass: UserUcImpl },
+
     { provide: IHttpPruebaUc, useClass: HttpPruebaUcimpl },
     { provide: IParamUc, useClass: ParamUcimpl },
     { provide: IServiceErrorUc, useClass: ServiceErrorUcimpl },
     { provide: IServiceTracingUc, useClass:ServiceTracingUcimpl},
   ],
   
-  exports: [IMessageUc, IHttpPruebaUc, IParamUc, IServiceErrorUc, IServiceTracingUc],
+  exports: [IMessageUc, IUserUc, IHttpPruebaUc, IParamUc, IServiceErrorUc, IServiceTracingUc],
 })
 export class CoreModule {}

@@ -7,22 +7,22 @@ export class CreateUserDto {
 
     @IsNotEmpty()
     @IsString()
-    @ApiProperty({ example: 'John Doe', description: 'The name of the user' })
+    @ApiProperty({ example: 'Carlos Perez', description: 'El nombre de usuario' })
     readonly name: string;
     
     @IsNotEmpty()
     @IsString()
-    @ApiProperty({ example: '1234567890', description: 'The document number of the user' })
+    @ApiProperty({ example: '1234567890', description: 'El numero de documento del usuario' })
     readonly documentNumber: string;
 
     @IsNotEmpty()
     @IsString()
-    @ApiProperty({ example: 'ID', description: 'The document type of the user' })
+    @ApiProperty({ example: 'ID', description: 'El tipo de documento del usuario' })
     readonly documentType: string;
 
     @IsArray()
     @ValidateNested({ each: true })
     @Type(() => CreateAddressDto)
-    @ApiProperty({ description: "List of user addresses", type: [CreateAddressDto]})
+    @ApiProperty({ description: "Lista de direcciones del usuario", type: [CreateAddressDto]})
     readonly addresses: CreateAddressDto[];
 }

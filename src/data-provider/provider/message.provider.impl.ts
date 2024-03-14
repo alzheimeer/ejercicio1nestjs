@@ -18,7 +18,7 @@ import { ETaskDesc, Etask } from 'src/common/utils/enums/taks.enum';
 import { ELevelsErros } from 'src/common/utils/enums/logging.enum';
 
 @Injectable()
-export class MessageProvider implements IMessageProvider {
+export class MessageProvider implements IMessageProvider { 
     private readonly logger = new Logging(MessageProvider.name);
     constructor(
         @InjectModel(MessageModel.name) private readonly messageModel: Model<MessageModel>,
