@@ -11,28 +11,36 @@ export class UserUcImpl implements IUserUc {
         private userProvider: IUserProvider // Inyecta IUserProvider
     ) {}
 
+    /**
+    * Usa userProvider para crear el usuario
+    */
     async createUser(createUserDto: CreateUserDto): Promise<IUser> {
-        // Usa userProvider para crear el usuario
         return await this.userProvider.createUser(createUserDto);
     }
 
+    /**
+    * Usa userProvider para obtener todos los usuarios con todas sus direcciones.
+    */
     async getAllUsers(): Promise<IUser[]> {
-        // Usa userProvider para obtener todos los usuarios
         return await this.userProvider.getAllUsers();
     }
 
+    /**
+    * Usa userProvider para obtener un usuario requerido con solo la direccion activa
+    */
     async getUserAndMainAddress(userId: string): Promise<IUser> {
         const user = await this.userProvider.getUserById(userId);
         if (!user) {
             throw new NotFoundException(`Usuario con ID ${userId} no encontrado.`);
         }
-        // Filtra y mantiene solo la dirección principal activa
         user.addresses = user.addresses.filter(address => address.isPrimary && address.isActive);
         return user;
     }
 
+    /**
+    * Usa userProvider para actualizar las direcciones del usuario
+    */
     async updateAddresses(userId: string, updateAddressDtos: UpdateAddressDto[]): Promise<boolean> {
-        // Usa userProvider para actualizar las direcciones del usuario
         return await this.userProvider.updateUserAddresses(userId, updateAddressDtos);
     }
 }

@@ -5,8 +5,20 @@ import { IUser } from '../entity/user.interface';
 
 @Injectable()
 export abstract class IUserUc {
+    /**
+    * Función para crear usuario
+    */
     abstract createUser(createUserDto: CreateUserDto): Promise<IUser>;
+    /**
+    * Función para cargar obtener todos los usuario
+    */
     abstract getAllUsers(): Promise<IUser[]>;
+    /**
+    * Función para cargar un usuario y su direccion activa
+    */
     abstract getUserAndMainAddress(userId: string): Promise<IUser>;
+    /**
+    * Función para actualizar direcciones de un usuario
+    */
     abstract updateAddresses(userId: string, updateAddressDtos: UpdateAddressDto[]): Promise<boolean>;
 }

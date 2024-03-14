@@ -27,6 +27,7 @@ import { UserProvider } from './provider/user.provider.impl';
 import { UserModel, UserSchema } from './model/user.model';
 import { AddressModel, AddressSchema } from './model/address.model';
 
+
 @Module({
   imports: [
     //Conexión a base de datos
@@ -58,7 +59,7 @@ import { AddressModel, AddressSchema } from './model/address.model';
     { provide: IServiceTracingProvider, useClass: ServiceTracingProvider },
     { provide: IServiceTracingUc, useClass: ServiceTracingUcimpl},
     { provide: IOracleDBProvider, useClass: OracleDBProvider },
-    HttpModule
+    HttpModule,
   ],
   exports: [
     IMessageProvider,
@@ -69,6 +70,7 @@ import { AddressModel, AddressSchema } from './model/address.model';
     IServiceTracingProvider, 
     IServiceTracingUc, 
     HttpModule, 
-    IOracleDBProvider],
+    IOracleDBProvider,
+  ],
 })
 export class DataProviderModule {}
