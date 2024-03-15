@@ -48,6 +48,9 @@ $ cd MSTemplateNestJs
 # Comando generación pruebas unitarias
 $ npm run test:cov 
 
+# Comando generación pruebas unitarias archivo especifico
+$ npm test controller/user.controller.spec.ts
+
 # Generación informe herramienta sonarQube
 $ npm run sonar-scanner
 ```

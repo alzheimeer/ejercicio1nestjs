@@ -12,5 +12,6 @@ export enum MethodMessage {
 export enum MethodUser {
     GETBYID = ':userId',
     GETALL = '/',
+    CREATE = '/',
     UPDATE = ':userId/addresses'
 }

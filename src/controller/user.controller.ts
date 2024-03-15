@@ -10,8 +10,10 @@
   import generalConfig from 'src/common/configuration/general.config';
 import { MethodUser } from 'src/common/utils/enums/mapping-api-rest';
   
-  @ApiTags(generalConfig.controllerUser)
+  @ApiTags(generalConfig.controllerUser) 
+  //@ApiTags('users') 
   @Controller(`${generalConfig.apiVersion}${generalConfig.controllerUser}`)
+  // @Controller('V1/users')
 
   export class UserController {
     constructor(
