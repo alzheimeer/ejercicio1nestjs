@@ -1,14 +1,21 @@
+  /**
+ * Clase de endpoints al microservicio Users
+ * @author Carlos Mauricio Quintero
+ */
   import { Body, Controller, Get, Post, Put, Param, BadRequestException, Inject, } from '@nestjs/common';
   import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
   import { CreateUserDto } from './dto/create-user.dto';
   import { UpdateAddressDto } from './dto/update-address.dto';
   import { IUserService } from './service/user.service';
+  import generalConfig from 'src/common/configuration/general.config';
+import { MethodUser } from 'src/common/utils/enums/mapping-api-rest';
   
-  @ApiTags('users')
-  @Controller('api/v1/users')
+  @ApiTags(generalConfig.controllerUser)
+  @Controller(`${generalConfig.apiVersion}${generalConfig.controllerUser}`)
+
   export class UserController {
     constructor(
-      private readonly _userService: IUserService
+      private readonly _userService: IUserService 
     ) {}
   
     @Post()
@@ -24,15 +31,14 @@
       return user;
     }
   
-    @Get()
+    @Get(MethodUser.GETALL)
     @ApiOperation({ description: 'Obtiene todos los usuarios y su dirección principal activa' })
     @ApiResponse({ status: 200, description: 'Usuarios econtrados' })
     async getAllUsers() {
-      // return 'Hello World!';
       return await this._userService.getAllUsers();
     }
 
-    @Get(':userId')
+    @Get(MethodUser.GETBYID)
     @ApiOperation({ description: 'Obtiene un usuario y su dirección principal activa' })
     @ApiResponse({ status: 200, description: 'Usuario encontrado' })
     async getUser(@Param('userId') userId: string) {
@@ -43,7 +49,7 @@
       return user;
     }
   
-    @Put(':userId/addresses')
+    @Put(MethodUser.UPDATE)
     @ApiOperation({ description: 'Actualiza las direcciones de un usuario' })
     @ApiResponse({ status: 200, description: 'Direcciones actualizadas' })
     async updateAddresses(

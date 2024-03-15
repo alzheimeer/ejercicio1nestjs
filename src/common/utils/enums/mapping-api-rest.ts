@@ -8,3 +8,9 @@ export enum MethodMessage {
     GETALL = '/',
     UPDATE = ':Id'
 }
+
+export enum MethodUser {
+    GETBYID = ':userId',
+    GETALL = '/',
+    UPDATE = ':userId/addresses'
+}

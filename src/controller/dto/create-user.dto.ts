@@ -7,17 +7,17 @@ export class CreateUserDto {
 
     @IsNotEmpty()
     @IsString()
-    @ApiProperty({ example: 'Carlos Perez', description: 'El nombre de usuario' })
+    @ApiProperty({ type: 'string', example: 'Carlos Perez', description: 'El nombre de usuario' })
     readonly name: string;
     
     @IsNotEmpty()
     @IsString()
-    @ApiProperty({ example: '1234567890', description: 'El numero de documento del usuario' })
+    @ApiProperty({ type: 'string', example: '1234567890', description: 'El numero de documento del usuario' })
     readonly documentNumber: string;
 
     @IsNotEmpty()
     @IsString()
-    @ApiProperty({ example: 'ID', description: 'El tipo de documento del usuario' })
+    @ApiProperty({ type: 'string', example: 'ID', description: 'El tipo de documento del usuario' })
     readonly documentType: string;
 
     @IsArray()
@@ -25,4 +25,4 @@ export class CreateUserDto {
     @Type(() => CreateAddressDto)
     @ApiProperty({ description: "Lista de direcciones del usuario", type: [CreateAddressDto]})
     readonly addresses: CreateAddressDto[];
-}
+} 

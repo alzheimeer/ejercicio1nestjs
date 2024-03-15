@@ -49,9 +49,7 @@ export class MessageController {
 
 
   @Get(MethodMessage.GETALL)
-  @ApiOperation({
-    description: 'Obtener mensajes usando filtro y paginado'
-  })
+  @ApiOperation({ description: 'Obtener mensajes usando filtro y paginado' })
   @ApiResponse({ type: ResponseService })
   async getAll(
     @Headers('channel') channel: string,

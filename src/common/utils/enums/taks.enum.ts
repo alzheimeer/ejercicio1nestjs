@@ -3,6 +3,17 @@
  * @author Fredy Santiago Martinez
  */
 export enum Etask {
+  CREATE_USER = 'CREATING_USER',
+  UPDATE_USER = 'UPDATING_USER',
+  FIND_USER = 'FINDING_USER',
+  DELETE_USER = 'DELETING_USER',
+  LOAD_USER_MESSAGES = 'LOADING_USER_MESSAGES',
+  VALIDATE_USER = 'VALIDATING_USER',
+  CREATE_USER_ADDRESS = 'CREATING_USER_ADDRESS',
+  UPDATE_USER_ADDRESS = 'UPDATING_USER_ADDRESS',
+  DELETE_USER_ADDRESS = 'DELETING_USER_ADDRESS',
+
+
   CREATE = 'PROCESS_CREATE',
   FINDALL = 'CONSULTANDO_MOCKUPS',
   FINDONE = 'CONSULTANDO_MOCKUP',
@@ -37,6 +48,17 @@ export enum Etask {
 
 //Descripción de las tareas que se realizan en el microservicio
 export enum ETaskDesc {
+  CREATE_USER = 'Creating a new user in the system.',
+  UPDATE_USER = 'Updating user information.',
+  FIND_USER = 'Retrieving user information.',
+  DELETE_USER = 'Deleting a user from the system.',
+  LOAD_USER_MESSAGES = 'Loading messages for a user.',
+  VALIDATE_USER = 'Validating user information.',
+  CREATE_USER_ADDRESS = 'Adding a new address for a user.',
+  UPDATE_USER_ADDRESS = 'Updating an existing address for a user.',
+  DELETE_USER_ADDRESS = 'Deleting an address for a user.',
+
+  
   CHANNEL = 'Validation of the channel',
   ERROR_LOAD_PARAM = 'Error cargando parametros',
   UPDATE_PARAM = 'Actualizando parametros',
