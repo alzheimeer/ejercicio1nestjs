@@ -1,5 +1,5 @@
 /**
- * Clase donde se definen los metodos a exponer por parte del servicio de metodos de peticiones
+ * Clase donde se definen los métodos a exponer por parte del servicio de métodos de peticiones
  * @author Fredy Santiago Martinez
  */
 import { Controller, Get, Param, Query } from "@nestjs/common";

@@ -1,6 +1,6 @@
 /**
  * Clase para realizar las respectivas operaciones de mockups
- * @author Oscar Avila
+ * @author Oscar Ávila
  */
 
 import { HttpStatus, HttpException, Injectable } from '@nestjs/common';

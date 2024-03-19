@@ -1,5 +1,5 @@
 /**
- * Clase donde se definen metodos para crear la trazabilidad
+ * Clase donde se definen métodos para crear la trazabilidad
  * @author Fredy Santiago Martinez
  */
 

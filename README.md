@@ -24,7 +24,7 @@ $ cd MSTemplateNestJs
 $ npm i
 ```
 
-**NOTA: Antes de correr el proyecto se debe tenee en cuenta crear las colecciones de los mensajes y parametros generales en la BD local con los datos correspondientes que se van usar en el proyecto.**
+**NOTA: Antes de correr el proyecto se debe tener en cuenta crear las colecciones de los mensajes y parámetros generales en la BD local con los datos correspondientes que se van usar en el proyecto.**
 
 Para la colección **coll_message** cargar los documentos del siguiente [Enlace](https://claromovilco.sharepoint.com/:u:/s/ImplementacinV9/EYdmgl3Dc39GvrCf4Bt9IkABFFe4VNdId8x9mXHlo1gMsA?e=sorjaB)
 
@@ -35,7 +35,7 @@ Para la colección **coll_params** cargar los documentos del siguiente [Enlace](
 $ npm run start:dev
 ```
 
-Luego podrá acceder desde el [navegador](http://localhost:8080) para validar que se visualize correctamente el swagger del proyecto.
+Luego podrá acceder desde el [navegador](http://localhost:8080) para validar que se visualice correctamente el swagger del proyecto.
 
 ## **Ejecutar pruebas unitarias y sonarQube**
 
@@ -54,12 +54,12 @@ $ npm test controller/user.controller.spec.ts
 # Generación informe herramienta sonarQube
 $ npm run sonar-scanner
 ```
-Una vez finalizado el proceso y si no genero ningún error Luego podrá acceder desde el [navegador](http://sonarqube-pruebad.apps.claro.co/projects?sort=name) para validar que se visualize correctamente el informe de sonarQUbe.
+Una vez finalizado el proceso y si no genero ningún error Luego podrá acceder desde el [navegador](http://sonarqube-pruebad.apps.claro.co/projects?sort=name) para validar que se visualice correctamente el informe de sonarQube.
 
 ## **Módulos del proyecto**
 
 - Common:
-  Módulo transversal en el cual se define la configuración, librerías, enumeradores, útilidades.
+  Módulo transversal en el cual se define la configuración, librerías, enumeradores, utilidades.
 
 - Controller:
   Modulo en el cual se definen los paths o funcionalidades que expone el servicio

@@ -1,11 +1,11 @@
 /**
- * Clase donde se definen los metodos a exponer por parte del servicio de metodos de mensajes
+ * Clase donde se definen los métodos a exponer por parte del servicio de métodos de mensajes
  * @author Fredy Santiago Martinez
  */
 import { BadRequestException, Body, Controller, Get, Param, Put, Query, Headers } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import generalConfig from 'src/common/configuration/general.config';
-import Traceability from 'src/common/lib/traceability';
+import Traceability from 'src/common/lib/traceability'; 
 import { MethodMessage } from 'src/common/utils/enums/mapping-api-rest';
 import { ETaskMessageGeneral } from 'src/common/utils/enums/message.enum';
 import { EStatusTracingGeneral } from 'src/common/utils/enums/tracing.enum';

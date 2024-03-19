@@ -4,6 +4,7 @@ import { UpdateAddressDto } from 'src/controller/dto/update-address.dto';
 import { IUserUc } from '../user.uc';
 import { IUser } from '../../../core/entity/user.interface';
 import { IUserProvider } from 'src/data-provider/user.provider';
+import { BusinessException } from 'src/common/lib/business-exceptions';
 
 @Injectable()
 export class UserUcImpl implements IUserUc {
@@ -30,13 +31,11 @@ export class UserUcImpl implements IUserUc {
     */
     async getUserAndMainAddress(userId: string): Promise<IUser> {
         const user = await this.userProvider.getUserById(userId);
-        if (!user) { 
-            throw new NotFoundException(`Usuario con ID ${userId} no encontrado.`);
-        }
+        if (!user) return null; 
         user.addresses = user.addresses.filter(address => address.isPrimary && address.isActive);
         return user;
     }
-
+ 
     /**
     * Usa userProvider para actualizar las direcciones del usuario
     */

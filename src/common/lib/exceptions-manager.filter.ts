@@ -38,14 +38,14 @@ export class ExceptionManager implements ExceptionFilter {
     const req = ctx.getRequest();
 
     let result: ResponseService;
-
-    if (exception instanceof BusinessException)
+    if (exception instanceof BusinessException){
       result = new ResponseService(exception.success, exception ?.details ?.codMessage || exception ?.description, exception.code, exception ?.details ?.document);
-    else if (exception instanceof HttpException)
+    }
+    else if (exception instanceof HttpException){
       result = new ResponseService(false, EmessageMapping.DEFAULT_ERROR, exception.getStatus(), exception ?.getResponse()['message']);
-    else
+    }else{
       result = new ResponseService(false, EmessageMapping.DEFAULT_ERROR, HttpStatus.INTERNAL_SERVER_ERROR);
-
+    }
     const origen: string = GeneralUtil.getOrigin(req['url']);
 
     result = {

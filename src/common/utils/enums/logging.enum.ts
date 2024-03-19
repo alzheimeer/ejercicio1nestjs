@@ -14,4 +14,4 @@ export enum ELevelsErros {
     INFO = 'info',
     ERROR = 'error',
     WARNING = 'warn'
-}
+} 

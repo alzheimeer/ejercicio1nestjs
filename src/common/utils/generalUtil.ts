@@ -1,5 +1,5 @@
 /**
- * Clase con metodos utilitarios como transformacion de data
+ * Clase con métodos utilitarios como transformación de data
  * @author Fredy Santiago Martinez
  */
 const rTracer = require('cls-rtracer');
@@ -29,7 +29,7 @@ export default class GeneralUtil {
   }
 
   /**
-   * Función para validar que request envia el usuario en una petición API
+   * Función para validar que request envía el usuario en una petición API
    * @param {any} obj arreglo con información recibida de la API
    * @returns Boolean si existe información
    */
@@ -73,8 +73,8 @@ export default class GeneralUtil {
   /**
    * Limpia los valores y/o propiedades de un JSON
    * @param {*}json objeto JSON a limpiar
-   * @param {string[]} replaceValues Arregalo de valores a remplazar del json
-   * @param {string} replaceBy caracter por el cual se reemplazaran los valores indicados.
+   * @param {string[]} replaceValues Arreglo de valores a remplazar del json
+   * @param {string} replaceBy carácter por el cual se reemplazaran los valores indicados.
    * @returns Objeto json con valores reemplazados
    */
   public static cleanProperties(json: any, replaceValues: string[], replaceBy: string = ''): any {
@@ -100,7 +100,7 @@ export default class GeneralUtil {
 
   /**
    * Transforma el tipo de documento a su homologo en número
-   * @param {EtypeDocument} typeDoc caracter de Tipo de documento en string
+   * @param {EtypeDocument} typeDoc carácter de Tipo de documento en string
    * @returns {Number} Número de homologación del tipo de documento
    */
   public static transformTypeDoc(typeDoc: EtypeDocument): number {
@@ -154,7 +154,7 @@ export default class GeneralUtil {
   /**
    * Manejo de mensajes en cache
    * @param {Cache} cache cache almacenado
-   * @param {string} operation tipo de operacion a realizar
+   * @param {string} operation tipo de operación a realizar
    * @param {IMessage[]} messages arreglo de mensajes
    * @param {IMessage} updatedMessage mensaje actualizado
    */
@@ -215,9 +215,9 @@ export default class GeneralUtil {
   /**
    * Genera excepciones de negocio 
    * @param {*} document 
-   * @param {EmessageMapping} message tipo de excepcion
-   * @param {MappingStatusCode} status estado de la excepcion
-   * @param {boolean} success  estado de la operacion 
+   * @param {EmessageMapping} message tipo de excepción
+   * @param {MappingStatusCode} status estado de la excepción
+   * @param {boolean} success  estado de la operación 
    */
   public static generateBusinessException(document: any, message: EmessageMapping, status: MappingStatusCode, success: boolean) {
     throw new BusinessException(
@@ -255,7 +255,7 @@ export default class GeneralUtil {
   /**
    * Valida si la variable recibida existe 
    * @param {*}element elemento recibido
-   * @returns el elemento o vacio
+   * @returns el elemento o vacío
    */
   public static ifExist(element: any): any {
     if (element)
@@ -343,7 +343,7 @@ export default class GeneralUtil {
    * @param {any} request body o params de la petición
    * @param {any} name nombre de la clase interceptor
    * @param {any} data respuesta final de la petición
-   * @param {number} executionTime tiempo de execución de la respuesta
+   * @param {number} executionTime tiempo de ejecución de la respuesta
    */
   public static logRequestResponse( req, request, name, data?, executionTime? ){
     let message: string = 'Entrada';
@@ -373,7 +373,7 @@ export default class GeneralUtil {
    * @param {any} req objeto de la petición
    * @param {any} request body o params de la petición
    * @param {any} data respuesta final de la petición
-   * @param {number} executionTime tiempo de execución de la respuesta
+   * @param {number} executionTime tiempo de ejecución de la respuesta
    */
   public static traceabilityInterceptor( req, request, data?, executionTime? ){
     let task = ETaskTracingGeneral.INICIO_REQUEST;
@@ -399,9 +399,9 @@ export default class GeneralUtil {
   }
 
   /**
-   * Funcion para generar la trazabilidad en un consumo de legado
+   * Función para generar la trazabilidad en un consumo de legado
    * @param task Tarea a ejecutar por el legado
-   * @param request Parametros de la petición
+   * @param request Parámetros de la petición
    * @param data Respuesta del legado
    * @param executionTime Tiempo de ejecución del legado
    * @returns

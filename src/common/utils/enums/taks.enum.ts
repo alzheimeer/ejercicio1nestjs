@@ -3,15 +3,14 @@
  * @author Fredy Santiago Martinez
  */
 export enum Etask {
-  CREATE_USER = 'CREATING_USER',
-  UPDATE_USER = 'UPDATING_USER',
-  FIND_USER = 'FINDING_USER',
-  DELETE_USER = 'DELETING_USER',
-  LOAD_USER_MESSAGES = 'LOADING_USER_MESSAGES',
-  VALIDATE_USER = 'VALIDATING_USER',
-  CREATE_USER_ADDRESS = 'CREATING_USER_ADDRESS',
-  UPDATE_USER_ADDRESS = 'UPDATING_USER_ADDRESS',
-  DELETE_USER_ADDRESS = 'DELETING_USER_ADDRESS',
+  CREATE_USER = 'CREANDO_USUARIO',
+  UPDATE_USER = 'ACTUALIZANDO_USUARIO',
+  FINDALL_USER = 'CONSULTANDO_USUARIOS',
+  FINDONE_USER = 'CONSULTANDO_USUARIO',
+  DELETE_USER = 'BORRANDO_USUARIO',
+  CREATE_USER_ADDRESS = 'CREANDO_DIRECCION_USUARIO',
+  UPDATE_USER_ADDRESS = 'ACTUALIZANDO_DIRECCION_USUARIO',
+  DELETE_USER_ADDRESS = 'BORRANDO_DIRECCION_USUARIO',
 
 
   CREATE = 'PROCESS_CREATE',
@@ -48,25 +47,27 @@ export enum Etask {
 
 //Descripción de las tareas que se realizan en el microservicio
 export enum ETaskDesc {
-  CREATE_USER = 'Creating a new user in the system.',
-  UPDATE_USER = 'Updating user information.',
-  FIND_USER = 'Retrieving user information.',
-  DELETE_USER = 'Deleting a user from the system.',
-  LOAD_USER_MESSAGES = 'Loading messages for a user.',
-  VALIDATE_USER = 'Validating user information.',
-  CREATE_USER_ADDRESS = 'Adding a new address for a user.',
-  UPDATE_USER_ADDRESS = 'Updating an existing address for a user.',
-  DELETE_USER_ADDRESS = 'Deleting an address for a user.',
-
-  
-  CHANNEL = 'Validation of the channel',
-  ERROR_LOAD_PARAM = 'Error cargando parametros',
-  UPDATE_PARAM = 'Actualizando parametros',
-  ERROR_UPDATE_PARAM = 'Error actualizando parametros',
+  CHANNEL = 'Validación de el canal',
+  ERROR_LOAD_PARAM = 'Error cargando parámetros',
+  UPDATE_PARAM = 'Actualizando parámetros',
+  ERROR_UPDATE_PARAM = 'Error actualizando parámetros',
   ERROR_LOAD_MESSAGES = 'Error cargando mensajes',
   ERROR_UPDATE_MESSAGES = 'Error actualizando mensajes',
   CONSUMED_SERVICE = 'Result service',
   DATA_PROVIDER_HTTP_PRUEBA = 'Error http-prueba.provider,impl getById()',
   LOAD_MESSAGE = 'Cargando todos los mensajes de la base de datos',
   EXECUTE_SP_ORACLE = 'EXECUTE_SP_ORACLE',
+}
+
+export enum EStatusTracingGeneral { 
+  FAILED = 'FAILED',
+  ERROR = 'ERROR',
+  STATUS_SUCCESS = "SUCCESS",
+  STATUS_FAILED = "FAILED",
+  LEGACY_SUCCESS = 'LEGACY_SUCCESS',
+  LEGACY_ERROR = 'LEGACY_ERROR',
+  LEGACY_WARN = 'LEGACY_WARN',
+  BD_SUCCESS = 'BD_SUCCESS',
+  BD_ERROR = 'BD_ERROR',
+  BD_WARN = 'BD_WARN'
 }

@@ -14,7 +14,7 @@ export abstract class IUserUc {
     */
     abstract getAllUsers(): Promise<IUser[]>;
     /**
-    * Función para cargar un usuario y su direccion activa
+    * Función para cargar un usuario y su dirección activa
     */
     abstract getUserAndMainAddress(userId: string): Promise<IUser>;
     /**

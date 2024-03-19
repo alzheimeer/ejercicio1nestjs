@@ -1,5 +1,5 @@
 /**
- * Clase donde se definen los campos para la coleccion de la trazabilidad
+ * Clase donde se definen los campos para la colección de la trazabilidad
  * @author Fredy Santiago Martinez
  */
 

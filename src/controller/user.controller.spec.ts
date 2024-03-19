@@ -1,7 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { UserController } from './user.controller';
 import { IUserService } from './service/user.service';
-import { BadRequestException } from '@nestjs/common';
+import { BadRequestException, NotFoundException } from '@nestjs/common';
+import { IServiceTracingUc } from 'src/core/use-case/resource/service-tracing.resource.uc';
 
 describe('UserController', () => {
   let controller: UserController;
@@ -14,13 +15,20 @@ describe('UserController', () => {
       getUserAndMainAddress: jest.fn(),
       updateAddresses: jest.fn(),
     };
-
+    const serviceTracingUcMock: Partial<IServiceTracingUc> = {
+      createServiceTracing: jest.fn(),
+    };
+    
     const module: TestingModule = await Test.createTestingModule({
       controllers: [UserController],
       providers: [
         {
           provide: IUserService,
           useValue: userServiceMock,
+        },
+        {
+          provide: IServiceTracingUc,
+          useValue: serviceTracingUcMock,
         },
       ],
     }).compile();
@@ -136,9 +144,13 @@ describe('UserController', () => {
     );
   });
 
+  it('debería lanzar una excepción si falla al obtener todos los usuarios', async () => {
+    userServiceMock.getAllUsers.mockRejectedValue(new Error('Error interno'));
+    await expect(controller.getAllUsers()).rejects.toThrow('Error interno');
+  });
+
   it('debería obtener un usuario por ID correctamente', async () => {
     const userId = '65f36d2383b7dd878dbf4a99';
-    // Simula la respuesta esperada del servicio
     const expectedUserData: any = {
       id: userId,
       name: '11111 Quintero',
@@ -153,15 +165,9 @@ describe('UserController', () => {
         },
       ],
     };
-
     userServiceMock.getUserAndMainAddress.mockResolvedValue(expectedUserData);
-
     const result = await controller.getUser(userId);
-
-    // Verifica que el servicio fue llamado correctamente
     expect(userServiceMock.getUserAndMainAddress).toHaveBeenCalledWith(userId);
-
-    // Comprueba la existencia y el tipo de los campos principales sin enfocarte en los valores exactos
     expect(result).toEqual(
       expect.objectContaining({
         id: expect.any(String),
@@ -180,6 +186,12 @@ describe('UserController', () => {
     );
   });
 
+  it('debería lanzar una excepción si no se encuentra un usuario por ID', async () => {
+    const userId = '65f36d2383b7dd878dbf4a99';
+    userServiceMock.getUserAndMainAddress.mockResolvedValue(null);
+    await expect(controller.getUser(userId)).rejects.toThrow(NotFoundException);
+  });
+  
   it('debería actualizar las direcciones de un usuario correctamente', async () => {
     const userId = '65f36d2383b7dd878dbf4a99';
     const updateAddressDtos = [
@@ -214,4 +226,14 @@ describe('UserController', () => {
       }),
     );
   });
+
+  it('debería lanzar una excepción si falla al actualizar las direcciones de un usuario', async () => {
+    const userId = '65f36d2383b7dd878dbf4a99';
+    const updateAddressDtos = [
+      { address: 'Nueva Dirección 1', isActive: true, isPrimary: true },
+    ];
+    userServiceMock.updateAddresses.mockRejectedValue(new Error('Error interno'));
+    await expect(controller.updateAddresses(userId, updateAddressDtos)).rejects.toThrow('Error interno');
+  });
+  
 });

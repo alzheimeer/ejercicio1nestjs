@@ -10,8 +10,8 @@ import { UserResponseDto } from '../dto/user-response.dto';
 @Injectable()
 export abstract class IUserService {
     /**
-    * Creacion de Usuario
-    * @param {CreateUserDto} createUser Parametros
+    * Creación de Usuario
+    * @param {CreateUserDto} createUser Parámetros
     */
     abstract createUser(createUserDto: CreateUserDto): Promise<UserResponseDto>;
     /**
@@ -19,12 +19,12 @@ export abstract class IUserService {
     */
     abstract getAllUsers(): Promise<UserResponseDto>;
     /**
-    * Consulta por Id
+    * Consulta por Id 
     * @param {string} userId Identificador del usuario
     */
     abstract getUserAndMainAddress(userId: string): Promise<UserResponseDto>;
     /**
-    * Creacion de Usuario
+    * Creación de Usuario
     * @param {string} userId  Identificador del usuario
     * @param {UpdateAddressDto[]} updateAddressDtos  Lista de direcciones
     */
