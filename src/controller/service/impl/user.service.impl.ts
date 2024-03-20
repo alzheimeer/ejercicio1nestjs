@@ -26,7 +26,7 @@ export class UserService implements IUserService {
       return new UserResponseDto(true, 201, 'Usuario creado correctamente.', user);
     } catch (error) {
       this.logger.write(`Error al crear el usuario: ${error.message}`, Etask.CREATE_USER);
-      throw new BusinessException(404, `Error al crear el usuario: ${error.message}`, false, {});
+      throw new Error(`Error al crear el usuario: ${error.message}`);
     }
   }
 
@@ -38,7 +38,7 @@ export class UserService implements IUserService {
       return new UserResponseDto(true, 200, 'Todos los usuarios obtenidos correctamente.', users);
     } catch (error) {
       this.logger.write(`Error al obtener todos los usuarios: ${error.message}`, Etask.FINDALL_USER);
-      throw new BusinessException(404, `Error al obtener todos los usuarios: ${error.message}`, false, {});
+      throw new Error(`Error al obtener todos los usuarios: ${error.message}`);
     }
   }
  
@@ -76,7 +76,8 @@ export class UserService implements IUserService {
       if (error instanceof BusinessException) {
         throw error;
       }
-      throw new BusinessException(500, `No se pudo actualizar las direcciones del usuario ${userId}.`, false);
+      // throw new BusinessException(500, `No se pudo actualizar las direcciones del usuario ${userId}.`, false);
+      throw new Error(`Error al actualizar direcciones: ${error.message}`);
     }
   }
 

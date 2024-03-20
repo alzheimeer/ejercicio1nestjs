@@ -14,7 +14,7 @@ import { AddressModel } from '../model/address.model';
 import { CreateAddressDto } from 'src/controller/dto/create-address.dto';
 import Logging from 'src/common/lib/logging';
 import { Etask } from 'src/common/utils/enums/taks.enum';
-import { BusinessException } from 'src/common/lib/business-exceptions';
+
 
 @Injectable()
 export class UserProvider implements IUserProvider {
@@ -127,7 +127,7 @@ export class UserProvider implements IUserProvider {
         return null;
       }
       let primaryFound = false;
-      const modifiedAddresses = updateAddressDtos.map((dto, index) => {
+      const modifiedAddresses = updateAddressDtos.map((dto) => {
         if (dto.isPrimary && !primaryFound) {
           primaryFound = true;
           return dto;

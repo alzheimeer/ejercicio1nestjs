@@ -6,14 +6,13 @@ import { Injectable } from '@nestjs/common';
 import { EmessageMapping } from 'src/common/utils/enums/message.enum';
 import { ResponseService } from 'src/controller/dto/response-service.dto';
 import { IHttpPruebaUc } from 'src/core/use-case/http-prueba.uc';
-import { IHttpPruebaService } from '../http-prueba.service';
 import Logging from 'src/common/lib/logging';
 import { ETaskDesc, Etask } from 'src/common/utils/enums/taks.enum';
 import { ELevelsErros } from 'src/common/utils/enums/logging.enum';
 import GeneralUtil from 'src/common/utils/generalUtil';
 
 @Injectable()
-export class HttpPruebaService implements IHttpPruebaService {
+export class HttpPruebaService  {
 
   private readonly logger = new Logging(HttpPruebaService.name);
   

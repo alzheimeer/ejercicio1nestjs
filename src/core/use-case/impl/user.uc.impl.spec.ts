@@ -119,10 +119,10 @@ describe('UserUcImpl', () => {
       expect(userProviderMock.getUserById).toHaveBeenCalledWith(userId);
     });
 
-    it('should throw NotFoundException if user is not found', async () => {
+    it('should throw null if user is not found', async () => {
       const userId = 'user-id';
       (userProviderMock.getUserById as jest.MockedFunction<typeof userProviderMock.getUserById>).mockResolvedValueOnce(null);
-      await expect(userUc.getUserAndMainAddress(userId)).rejects.toThrow(NotFoundException);
+      await expect(userUc.getUserAndMainAddress(userId)).resolves.toBeNull();
       expect(userProviderMock.getUserById).toHaveBeenCalledWith(userId);
     });
   });

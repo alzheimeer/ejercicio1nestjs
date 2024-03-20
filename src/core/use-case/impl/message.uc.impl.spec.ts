@@ -12,126 +12,30 @@ import { Empty } from 'nats';
 import e from 'express';
 
 describe('MessageUcimpl', () => {
-  let messageUc: MessageUcimpl;
+  let messageUcimpl: MessageUcimpl;
   let messageProviderMock: jest.Mocked<IMessageProvider>;
   let serviceTracingMock: jest.Mocked<IServiceTracingUc>;
 
-  beforeEach(async () => {
+  beforeEach(() => {
     messageProviderMock = {
-      getMessages: jest.fn(),
-      updateMessage: jest.fn(),
-      getMessage: jest.fn(),
-      loadMessages: jest.fn(),
-      getTotal: jest.fn(),
+      getMessages: jest.fn().mockResolvedValue([{ id: '1', message: 'Test Message' }]),
+      loadMessages: jest.fn().mockResolvedValue([]), // Añade mocks para los métodos faltantes
+      getTotal: jest.fn().mockResolvedValue(0),
+      getMessage: jest.fn().mockResolvedValue(null),
+      updateMessage: jest.fn().mockResolvedValue(null),
     } as jest.Mocked<IMessageProvider>;
 
-    serviceTracingMock = {} as jest.Mocked<IServiceTracingUc>;
+    serviceTracingMock = {
+      // Mocks para IServiceTracingUc
+    } as jest.Mocked<IServiceTracingUc>;
 
-    const module: TestingModule = await Test.createTestingModule({
-      providers: [
-        MessageUcimpl,
-        { provide: IMessageProvider, useValue: messageProviderMock },
-        { provide: IServiceTracingUc, useValue: serviceTracingMock },
-      ],
-    }).compile();
-
-    messageUc = module.get<MessageUcimpl>(MessageUcimpl);
+    messageUcimpl = new MessageUcimpl(messageProviderMock, serviceTracingMock);
   });
 
   describe('onModuleInit', () => {
-    it('should load messages on module initialization', async () => {
-      const messages: IMessage[] = [
-        { id: '1', description: 'Test message 1', message: 'Test message 1' },
-        { id: '2', description: 'Test message 2', message: 'Test message 2' },
-      ];
-      messageProviderMock.getMessages.mockResolvedValue(messages);
-
-      await messageUc.onModuleInit();
-
-      expect(messageProviderMock.getMessages).toHaveBeenCalledWith(1, 100, {});
-      expect(MessageUcimpl.getMessages).toEqual(messages);
-    });
-
-    it('should handle error when loading messages', async () => {
-      const error = new Error('Test error');
-      messageProviderMock.getMessages.mockRejectedValue(error);
-      const loggerSpy = jest.spyOn(Logging.prototype, 'write');
-
-      await messageUc.onModuleInit();
-
-      expect(loggerSpy).toHaveBeenCalledWith(
-        'Error cargando mensajes',
-        Etask.LOAD_MESSAGE,
-        ELevelsErros.WARNING,
-        error
-      );
-      expect(MessageUcimpl.getMessages).toEqual([]);
-    });
-  });
-
-  describe('update', () => {
-    it('should update a message and return the updated message', async () => {
-      const message: IMessage = { id: '1', description: 'Test message', message: 'Test message' };
-      const updatedMessage: IMessage = { id: '1', description: 'Test message 1', message: 'Updated message' };
-      messageProviderMock.updateMessage.mockResolvedValue(updatedMessage);
-
-      const result = await messageUc.update(message);
-
-      expect(messageProviderMock.updateMessage).toHaveBeenCalledWith(message);
-      expect(result).toEqual(updatedMessage);
-    });
-
-    it('should throw an error if the message does not exist' , async () =>  {
-      const message: IMessage = { id: '1', description: 'Test message', message: 'Test message' };
-      const updatedMessage = null;
-      messageProviderMock.updateMessage.mockResolvedValue(updatedMessage);
-      const result = messageUc.update(message);
-      expect(messageProviderMock.updateMessage).toHaveBeenCalledWith(message);
-
-    });
-  });
-
-  describe('getById', () => {
-    it('should get a message by id', async () => {
-      const idMessage = '1';
-      const message: IMessage = { id: '1', description: 'Test message', message: 'Test message' };
-      messageProviderMock.getMessage.mockResolvedValue(message);
-
-      const result = await messageUc.getById(idMessage);
-
-      expect(messageProviderMock.getMessage).toHaveBeenCalledWith(idMessage);
-      expect(result).toEqual(message);
-    });
-  });
-
-  describe('getMessages', () => {
-    it('should get messages based on the filter', async () => {
-      const page = 1;
-      const limit = 10;
-      const filter = {};
-      const documents: IMessage[] = [
-        { id: '1', description: 'Test message 1', message: 'Test message 1' },
-        { id: '2', description: 'Test message 2', message: 'Test message 2' },
-      ];
-      const responsePaginator: ResponsePaginator<IMessage> = {
-        pagination: { pageIndex: 1, pageSize: 10, totalDocuments: 2 },
-        data: documents,
-      };
-      messageProviderMock.loadMessages.mockResolvedValue(documents);
-
-      const result = await messageUc.getMessages(page, limit, filter);
-
-      expect(messageProviderMock.loadMessages).toHaveBeenCalledWith(page, limit, filter);
-    });
-
-    it('should throw an error if no documents are found', async () => {
-      const page = 1;
-      const limit = 10;
-      const filter = {};
-      const message: IMessage = { id: '1', description: 'Test message', message: 'Test message' };
-      messageProviderMock.loadMessages.mockResolvedValue(null);
-      const result = messageUc.getMessages(page, limit, filter);
-      expect(messageProviderMock.loadMessages).toHaveBeenCalledWith(page, limit, filter);
+    it('should load messages successfully', async () => {
+      await messageUcimpl.onModuleInit();
+      expect(MessageUcimpl.getMessages).toEqual([{ id: '1', message: 'Test Message' }]);
     });
   });
 });

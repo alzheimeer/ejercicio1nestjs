@@ -1,9 +1,9 @@
 {
-  "name": "MSTemplateNestJs",
+  "name": "MSUsers",
   "version": "3.0.0",
-  "description": "Proyecto base para la construcción de microservicios nestjs con lineamientos clean architecture",
+  "description": "Proyecto de microservicio de usuarios con lineamientos clean architecture",
   "author": "Oscar Alvarez",
-  "modified": "Christian Guantiva",
+  "modified": "Carlos Mauricio Quintero",
   "private": true,
   "license": "UNLICENSED",
   "scripts": {

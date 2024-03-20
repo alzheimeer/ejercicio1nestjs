@@ -11,7 +11,7 @@ export default {
   controllerHttpProvider: process.env.CONTROLLER_HTTP_PROVIDER || '/HttpProvider',
   controllerError: process.env.CONTROLLER_ERROR || '/errors',
   controllerMockup: process.env.CONTROLLER_MOCKUP || '/Mockup',
-  port: process.env.PORT || 3000,
+  port: process.env.PORT || 8080,
   logLevel: process.env.LOG_LEVEL || 'ALL',
   ttlCache: Number(process.env.TTL_CACHE || 0)
 }

@@ -235,5 +235,6 @@ describe('UserController', () => {
     userServiceMock.updateAddresses.mockRejectedValue(new Error('Error interno'));
     await expect(controller.updateAddresses(userId, updateAddressDtos)).rejects.toThrow('Error interno');
   });
+
   
 });

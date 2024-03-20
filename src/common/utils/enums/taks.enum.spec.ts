@@ -25,9 +25,9 @@ describe('Etask should have correct values', () => {
 describe('ETaskDesc should have correct values', () => {
 
     it('ETaskDesc" ', () => { 
-        expect(ETaskDesc.CHANNEL).toBe("Validation of the channel");
-        expect(ETaskDesc.ERROR_LOAD_PARAM).toBe("Error cargando parametros");
-        expect(ETaskDesc.UPDATE_PARAM).toBe("Actualizando parametros");
+        expect(ETaskDesc.CHANNEL).toBe("Validación de el canal");
+        expect(ETaskDesc.ERROR_LOAD_PARAM).toBe("Error cargando parámetros");
+        expect(ETaskDesc.UPDATE_PARAM).toBe("Actualizando parámetros");
         expect(ETaskDesc.ERROR_LOAD_MESSAGES).toBe("Error cargando mensajes");
         expect(ETaskDesc.ERROR_UPDATE_MESSAGES).toBe("Error actualizando mensajes");
         expect(ETaskDesc.CONSUMED_SERVICE).toBe("Result service");

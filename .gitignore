@@ -4,6 +4,7 @@
 .scannerwork/
 *package-lock.json
 /.vscode
+*.properties
 
 # Logs
 logs
