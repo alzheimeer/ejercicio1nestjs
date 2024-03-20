@@ -52,8 +52,7 @@ describe('UserProvider', () => {
     });
 
     it('should call the method without errors', async () => {
-      // Mockear el resultado esperado para el método específico que quieres probar
-      const mockUserResult: IUser[] = []; // Asume que esperas un arreglo vacío como resultado
+      const mockUserResult: IUser[] = [];
       userModelMock.find.mockReturnValue({
         lean: jest.fn().mockReturnThis(),
         exec: jest.fn().mockResolvedValue(mockUserResult),
@@ -61,7 +60,6 @@ describe('UserProvider', () => {
   
       const result = await userProvider.getAllUsers();
       expect(result).toEqual(mockUserResult);
-      // Verifica que el método 'find' fue llamado
       expect(userModelMock.find).toHaveBeenCalled();
     });
     
